@@ -1,5 +1,6 @@
 import 'reflect-metadata'
 import { ValidationPipe } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import * as bodyParser from 'body-parser'
@@ -11,6 +12,8 @@ import { AllExceptionFilter } from 'src/core/filters/all-exception.filter'
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, { bufferLogs: true })
+
+  const configService = app.get(ConfigService)
 
   app.useGlobalFilters(new AllExceptionFilter())
   dotenv.config()
@@ -36,7 +39,9 @@ async function bootstrap(): Promise<void> {
 
   SwaggerModule.setup('swagger', app, document)
 
-  await app.listen(+process.env.PORT)
+  const port = configService.get<number>('PORT')
+
+  await app.listen(port)
 }
 
 bootstrap()
