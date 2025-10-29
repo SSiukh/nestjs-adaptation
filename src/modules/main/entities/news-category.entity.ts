@@ -1,0 +1,19 @@
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+
+import { NewsCategoryTranslationEntity } from './news-category-translation.entity'
+import { NewsEntity } from './news.entity'
+
+@Entity('news_category')
+export class NewsCategoryEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date
+
+  @OneToMany(() => NewsEntity, (news) => news.category)
+  news: NewsEntity[]
+
+  @OneToMany(() => NewsCategoryTranslationEntity, (translation) => translation.category, { cascade: true, eager: true })
+  translations: NewsCategoryTranslationEntity[]
+}
