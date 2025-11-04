@@ -11,9 +11,15 @@ export class NewsCategoryEntity {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date
 
-  @OneToMany(() => NewsEntity, (news) => news.category)
-  news: NewsEntity[]
+  @Column({ nullable: true })
+  isPublished: boolean
+
+  @Column({ type: 'timestamp', nullable: true })
+  publishedAt?: Date
+
+  @OneToMany(() => NewsEntity, (news) => news.newsCategory)
+  news?: NewsEntity[]
 
   @OneToMany(() => NewsCategoryTranslationEntity, (translation) => translation.category, { cascade: true, eager: true })
-  translations: NewsCategoryTranslationEntity[]
+  translationList: NewsCategoryTranslationEntity[]
 }

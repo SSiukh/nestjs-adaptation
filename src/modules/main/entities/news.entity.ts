@@ -8,21 +8,33 @@ export class NewsEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
+  @Column({ unique: true })
+  slug: string
+
   @ManyToOne(() => NewsCategoryEntity, (category) => category.news, {
     onDelete: 'SET NULL',
     nullable: true,
   })
-  category?: NewsCategoryEntity
+  newsCategory?: NewsCategoryEntity
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date
 
   @Column({ type: 'timestamp', nullable: true })
-  publishedAt: Date
+  publishedAt?: Date
+
+  @Column({ nullable: true })
+  publishedHour: number
+
+  @Column({ nullable: true })
+  publishedMinute: number
+
+  @Column({ nullable: true })
+  publishedSecond: number
 
   @Column({ default: false })
   isPublished: boolean
 
   @OneToMany(() => NewsTranslationEntity, (translation) => translation.news, { cascade: true, eager: true })
-  translations: NewsTranslationEntity[]
+  translationList: NewsTranslationEntity[]
 }

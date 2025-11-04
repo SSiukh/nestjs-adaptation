@@ -1,7 +1,9 @@
 import { Transform } from 'class-transformer'
 import { IsDate, IsOptional, IsString } from 'class-validator'
 
-export class NewsListQueryParamsDto {
+import { PaginationParamsDto } from 'src/core/abstracts/pagination-params.dto'
+
+export class NewsListQueryParamsDto extends PaginationParamsDto {
   @IsOptional()
   @IsString()
   lang?: string

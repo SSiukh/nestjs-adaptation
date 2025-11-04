@@ -5,11 +5,11 @@ import { NewsCategoryEntity } from './news-category.entity'
 @Entity('news_category_translations')
 export class NewsCategoryTranslationEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+  categoryTranslationId: string
 
-  @ManyToOne(() => NewsCategoryEntity, (category) => category.translations, { onDelete: 'CASCADE' })
+  @ManyToOne(() => NewsCategoryEntity, (category) => category.translationList, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'news_category_id' })
-  category: NewsCategoryEntity
+  category?: NewsCategoryEntity
 
   @Column()
   lang: string

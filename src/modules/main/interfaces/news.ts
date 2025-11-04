@@ -3,6 +3,6 @@ import { NewsTranslationEntity } from 'src/modules/main/entities/news-translatio
 
 export interface NewsToListItem {
   isPublished: boolean
-  translations: NewsTranslationEntity[]
-  category: NewsCategoryEntity
+  translationList: NewsTranslationEntity[]
+  newsCategory: NewsCategoryEntity
 }
