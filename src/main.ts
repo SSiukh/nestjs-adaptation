@@ -1,9 +1,10 @@
 import 'reflect-metadata'
-import { ValidationPipe } from '@nestjs/common'
+import { Logger, ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import * as bodyParser from 'body-parser'
+import { useContainer } from 'class-validator'
 import * as dotenv from 'dotenv'
 
 import { AppModule } from 'src/app.module'
@@ -21,6 +22,9 @@ async function bootstrap(): Promise<void> {
   app.use(bodyParser.json({ limit: '50mb' }))
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
   app.useGlobalPipes(new ValidationPipe())
+  app.useLogger(new Logger())
+
+  useContainer(app.select(AppModule), { fallbackOnErrors: true })
 
   app.enableCors({
     origin: process.env.CORS_ORIGINS.split(','),

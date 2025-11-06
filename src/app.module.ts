@@ -4,9 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import * as dotenv from 'dotenv'
 import { CommandModule } from 'nestjs-command'
 
-import { DatabaseNamingStrategy } from 'src/db/database-naming.strategy'
+import { AppealModule } from './modules/appeal'
+import { NewsModule } from './modules/news'
+import { NewsCategoryModule } from './modules/news-category'
 
-import { MainModule } from 'src/modules/main/main.module'
+import { DatabaseNamingStrategy } from 'src/db/database-naming.strategy'
 
 dotenv.config()
 
@@ -32,7 +34,9 @@ dotenv.config()
       inject: [ConfigService],
     }),
     CommandModule,
-    MainModule,
+    AppealModule,
+    NewsModule,
+    NewsCategoryModule,
   ],
   controllers: [],
   providers: [],
