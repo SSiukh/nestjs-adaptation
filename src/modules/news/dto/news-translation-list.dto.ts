@@ -7,7 +7,8 @@ import { NewsMetaDataDto } from './news-meta-data.dto'
 export class NewsTranslationListDto {
   @IsUUID()
   @Expose()
-  translationId: string
+  @IsOptional()
+  translationId?: string
 
   @IsString()
   @Expose()
